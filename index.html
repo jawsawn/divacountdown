@@ -3,8 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cuntdown</title>
+    <title>Countdown</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Open Graph meta tags for link embedding -->
+    <meta property="og:title" content="Countdown for the Diva">
+    <meta property="og:description" content="Join us for the countdown to the Diva event!">
+    <meta property="og:image" content="./video.gif"> <!-- Replace with your image URL -->
+    <meta property="og:url" content=""> <!-- Replace with your website URL -->
 </head>
 <body class="bg-[url('./video.gif')] bg-fixed bg-cover bg-center flex flex-col items-center justify-center backdrop-blur-md h-dvh">
     <div><h1 class="w-80 h-20 text-white text-4xl text-center font-bold">COUNTDOWN FOR THE DIVA:</h1>
@@ -23,6 +28,8 @@
           if (distance < 0) {
             clearInterval(countdownInterval);
             countdownElement.textContent = "Time's up!";
+            document.title = "Time's up!";
+            $('head').append( `<meta name="description" content="Time's up!">` );
             return;
           }
     
@@ -30,12 +37,15 @@
           const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
           const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
           const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+          
     
           countdownElement.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+          document.title = `Countdown: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+          $('head').append( `<meta name="description" content="Countdown: ${days}d ${hours}h ${minutes}m ${seconds}s">` );
         }
     
         const countdownInterval = setInterval(updateCountdown, 1000);
         updateCountdown(); // Initial call to display the countdown immediately
-      </script>
+    </script>
 </body>
 </html>
